@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Iselin ❤️</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+    font-family:Arial;
+    overflow:hidden;
+}
+
+#container{
+    text-align:center;
+}
+
+h1{
+    font-size:48px;
+    color:white;
+    text-shadow:2px 2px 6px rgba(0,0,0,0.3);
+}
+
+button{
+    padding:15px 30px;
+    font-size:22px;
+    border:none;
+    border-radius:10px;
+    margin:20px;
+    cursor:pointer;
+}
+
+#yes{ background:#ff4d6d; color:white; }
+#no{
+    background:#555;
+    color:white;
+    position:absolute;
+}
+
+.flower{
+    position:absolute;
+    font-size:30px;
+    animation:fall linear infinite;
+}
+
+@keyframes fall{
+    from{ transform:translateY(-100px); }
+    to{ transform:translateY(110vh); }
+}
+
+#yay{
+    display:none;
+    text-align:center;
+    color:white;
+}
+
+#yay h2{
+    font-size:70px;
+    margin:0;
+}
+
+#sticker{
+    font-size:90px;
+    margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" src="song.mp3"></audio>
+
+<div id="container">
+    <h1>Iselin 💖<br>Will you be my Valentine?</h1>
+    <button id="yes">YES 😍</button>
+</div>
+
+<button id="no">NO 🙈</button>
+
+<div id="yay">
+    <h2>YAAAY!!! 💕</h2>
+    <div id="sticker">🥳🎉💃</div>
+</div>
+
+<script>
+const noBtn = document.getElementById("no");
+
+// NO button runs away
+document.addEventListener("mousemove", (e)=>{
+    const rect = noBtn.getBoundingClientRect();
+    const distance = Math.hypot(
+        e.clientX - (rect.left + rect.width/2),
+        e.clientY - (rect.top + rect.height/2)
+    );
+
+    if(distance < 120){
+        const newX = Math.random() * (window.innerWidth - 100);
+        const newY = Math.random() * (window.innerHeight - 60);
+        noBtn.style.left = newX + "px";
+        noBtn.style.top = newY + "px";
+    }
+});
+
+// YES clicked
+document.getElementById("yes").onclick = ()=>{
+    // play music 🎶
+    document.getElementById("music").play();
+
+    // hide question
+    document.getElementById("container").style.display="none";
+    document.getElementById("no").style.display="none";
+
+    // show YAY
+    document.getElementById("yay").style.display="block";
+
+    // flowers falling 🌸
+    for(let i=0;i<70;i++){
+        let flower = document.createElement("div");
+        flower.className="flower";
+        flower.innerHTML="🌸";
+        flower.style.left = Math.random()*100+"vw";
+        flower.style.animationDuration = (2+Math.random()*3)+"s";
+        document.body.appendChild(flower);
+    }
+}
+</script>
+
+</body>
+</html>
